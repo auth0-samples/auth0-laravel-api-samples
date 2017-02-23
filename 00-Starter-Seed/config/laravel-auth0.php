@@ -40,7 +40,7 @@ return array(
     |
     */
 
-    'redirect_uri'  => getenv('AUTH0_CALLBACK_URL')
+    'redirect_uri'  => getenv('AUTH0_CALLBACK_URL'),
 
     /*
     |--------------------------------------------------------------------------
@@ -63,15 +63,17 @@ return array(
     |   This is used to verify the decoded tokens when using RS256
     |
     */
-    // 'authorized_issuers'  => [ 'https://XXXX.auth0.com/' ],
-    
+    'authorized_issuers'  => [ 'https:'.getenv('AUTH0_DOMAIN').'/' ],
+
     /*
     |--------------------------------------------------------------------------
-    |   The authorized token issuers
+    |   The api identifier
     |--------------------------------------------------------------------------
     |   This is used to verify the decoded tokens when using RS256
     |
     */
-    // 'api_identifier'  => [ ],
+    'api_identifier'  => getenv('AUTH0_AUDIENCE'),
+
+    'supported_algs' => ['RS256']
 
 );
