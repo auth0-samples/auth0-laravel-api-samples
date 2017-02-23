@@ -63,7 +63,7 @@ return array(
     |   This is used to verify the decoded tokens when using RS256
     |
     */
-    'authorized_issuers'  => [ 'https:'.getenv('AUTH0_DOMAIN').'/' ],
+    'authorized_issuers'  => [ 'https://'.getenv('AUTH0_DOMAIN').'/' ],
 
     /*
     |--------------------------------------------------------------------------
