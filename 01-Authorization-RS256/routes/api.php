@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+Route::get('/public', function (Request $request) {
+    return response()->json(["message" => "Hello from a public endpoint! You don't need to be authenticated to see this."]);
+});
+
+Route::get('/private', function (Request $request) {
+    return response()->json(["message" => "Hello from a private endpoint! You need to have a valid access token to see this."]);
+})->middleware('auth0.jwt');
