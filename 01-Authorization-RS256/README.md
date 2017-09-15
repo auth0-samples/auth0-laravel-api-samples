@@ -16,6 +16,13 @@ Use `php artisan key:generate` to generate your APP_KEY.
 
 Run the application with `php artisan serve`.
 
+# Running the example with Docker
+
+If you want to run with [Docker](https://www.docker.com/) you need to add the `AUTH0_DOMAIN` and `API_ID`
+to the `.env` filed as explained [previously](#getting-started).
+
+Execute in command line `sh exec.sh` to run the Docker in Linux, or `.\exec.ps1` to run the Docker in Windows.
+
 ## What is Auth0?
 
 Auth0 helps you to:
