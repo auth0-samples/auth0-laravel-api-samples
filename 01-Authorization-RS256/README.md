@@ -10,7 +10,7 @@ You will need `composer` to install dependencies.
 composer install
 ```
 
-After that, you need to create `.env` file (use `.env.example` as an example). Make sure you don't forget to fill out with keys `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET` and `AUTH0_CALLBACK_URL` parameters.
+After that, you need to create `.env` file (use `.env.example` as an example). Make sure you don't forget to fill out with keys `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, `AUTH0_CALLBACK_URL` AND `AUTH0_AUDIENCE` parameters.
 
 Use `php artisan key:generate` to generate your APP_KEY.
 
@@ -18,8 +18,7 @@ Run the application with `php artisan serve`.
 
 # Running the example with Docker
 
-If you want to run with [Docker](https://www.docker.com/) you need to add the `AUTH0_DOMAIN` and `API_ID`
-to the `.env` filed as explained [previously](#getting-started).
+If you want to run with [Docker](https://www.docker.com/) you need to create `.env` file and fill out with the keys as explained [previously](#getting-started).
 
 Execute in command line `sh exec.sh` to run the Docker in Linux, or `.\exec.ps1` to run the Docker in Windows.
 
