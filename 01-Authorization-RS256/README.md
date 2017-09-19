@@ -16,7 +16,7 @@ Use `php artisan key:generate` to generate your APP_KEY.
 
 Run the application with `php artisan serve`.
 
-# Running the example with Docker
+## Running the example with Docker
 
 If you want to run with [Docker](https://www.docker.com/) you need to create `.env` file and fill out with the keys as explained [previously](#getting-started).
 
