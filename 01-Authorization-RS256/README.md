@@ -10,7 +10,7 @@ You will need `composer` to install dependencies.
 composer install
 ```
 
-After that, you need to create `.env` file (use `.env.example` as an example). Make sure you don't forget to fill out with keys `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, `AUTH0_CALLBACK_URL` and `AUTH0_AUDIENCE` parameters.
+After that, you need to create `.env` file (use `.env.example` as an example). Make sure you don't forget to fill out with keys `AUTH0_DOMAIN` and `AUTH0_AUDIENCE`. You don't need to change the values for `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, `AUTH0_CALLBACK_URL`, but don't delete the entries.
 
 Use `php artisan key:generate` to generate your APP_KEY.
 
