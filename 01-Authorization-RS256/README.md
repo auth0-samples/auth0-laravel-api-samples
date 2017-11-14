@@ -14,7 +14,7 @@ After that, you need to create `.env` file (use `.env.example` as an example). M
 
 Use `php artisan key:generate` to generate your APP_KEY.
 
-Run the application with `php artisan serve`.
+Run the application with `php artisan serve --port=3010`.
 
 ## Running the example with Docker
 
@@ -44,7 +44,7 @@ If you have found a bug or if you have a feature request, please report them at 
 
 ## Author
 
-[Auth0](auth0.com)
+[Auth0](https://auth0.com)
 
 ## License
 
