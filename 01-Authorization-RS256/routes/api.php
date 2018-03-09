@@ -19,4 +19,10 @@ Route::get('/public', function (Request $request) {
 
 Route::get('/private', function (Request $request) {
     return response()->json(["message" => "Hello from a private endpoint! You need to have a valid access token to see this."]);
-})->middleware('auth:api');
+})->middleware('jwt');
+
+Route::get('/private-scoped', function (Request $request) {
+    return response()->json([
+        "message" => "Hello from a private endpoint! You need to have a valid access token and a scope of read:messages to see this."
+    ]);
+})->middleware('check.scope:read:messages');

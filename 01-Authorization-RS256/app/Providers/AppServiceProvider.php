@@ -27,16 +27,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind( 
-            Auth0UserRepositoryContract::class, 
-            Auth0UserRepository::class 
-        ); 
+        // Set 10 seconds leeway to avoid Exception 'Cannot handle token prior to [timestamp]'
+        // If you still get this Exception don't set a higher leeway,
+        // consider synchronize your server with NTP instead.
+        // For more information see: https://github.com/auth0/auth0-PHP/issues/56
+        \Firebase\JWT\JWT::$leeway = 10;
+
+        $this->app->bind(
+            Auth0UserRepositoryContract::class,
+            Auth0UserRepository::class
+        );
         
         // This is used for RS256 tokens to avoid fetching the JWKs on each request
         $this->app->bind(
             '\Auth0\SDK\Helpers\Cache\CacheHandler',
             function() {
-                static $cacheWrapper = null; 
+                static $cacheWrapper = null;
                 if ($cacheWrapper === null) {
                     $cache = Cache::store();
                     $cacheWrapper = new LaravelCacheWrapper($cache);
