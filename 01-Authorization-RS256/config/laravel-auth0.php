@@ -72,7 +72,7 @@ return array(
     |   This is used to verify the decoded tokens when using RS256
     |
     */
-    'api_identifier'  => getenv('AUTH0_AUDIENCE'),
+    'api_identifier'  => getenv('API_IDENTIFIER'),
 
     'supported_algs' => ['RS256']
 
