@@ -42,9 +42,9 @@ class CheckJWT
 
             \Auth::login($user);
 
-        } catch (CoreException $e) {
-            return response()->json(["message" => $e->getMessage()], 401);
         } catch (InvalidTokenException $e) {
+            return response()->json(["message" => $e->getMessage()], 401);
+        } catch (CoreException $e) {
             return response()->json(["message" => $e->getMessage()], 401);
         }
 
