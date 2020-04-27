@@ -27,12 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Set 10 seconds leeway to avoid Exception 'Cannot handle token prior to [timestamp]'
-        // If you still get this Exception don't set a higher leeway,
-        // consider synchronize your server with NTP instead.
-        // For more information see: https://github.com/auth0/auth0-PHP/issues/56
-        \Firebase\JWT\JWT::$leeway = 10;
-
         $this->app->bind(
             Auth0UserRepositoryContract::class,
             Auth0UserRepository::class
