@@ -43,13 +43,13 @@ class CheckScope
 
             if($scope) {
                 $hasScope = false;
-                if(isset($tokenInfo->scope)) {
-                    $scopes = explode(" ", $tokenInfo->scope);
+                if(isset($tokenInfo['scope'])) {
+                    $scopes = explode(" ", $tokenInfo['scope']);
                     foreach ($scopes as $s) {
                         if ($s === $scope)
                             $hasScope = true;
                     }
-                }
+                } 
                 if(!$hasScope)
                     return response()->json(["message" => "Insufficient scope"], 403);
 
