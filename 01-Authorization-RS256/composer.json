@@ -8,7 +8,7 @@
         "php": "^7.2",
         "laravel/framework": "^6.0",
         "auth0/login": "~6.0",
-        "barryvdh/laravel-cors": "^0.11.0"
+        "barryvdh/laravel-cors": "^2.0.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
