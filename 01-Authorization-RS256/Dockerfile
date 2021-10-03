@@ -13,7 +13,7 @@ RUN php composer.phar --no-plugins --no-scripts install
 
 ADD . /home/app
 
-RUN php artisan optimize
+# RUN php artisan optimize
 
 # Migrate the database
 RUN php artisan migrate
