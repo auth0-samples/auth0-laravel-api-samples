@@ -26,7 +26,7 @@ AUTH0_STRATEGY='api'
 AUTH0_CLIENT_ID='YOUR_AUTH0_CLIENT_ID'
 
 # The url of your Auth0 tenant domain
-AUTH0_DOMAIN='https://YOUR_AUTH0_DOMAIN.auth0.com'
+AUTH0_DOMAIN='YOUR_AUTH0_DOMAIN.auth0.com'
 ```
 
 **Note**: Make sure you replace `LONG_RANDOM_VALUE` with your secret (you can generate a suitable string using `openssl rand -hex 32` on the command line).
