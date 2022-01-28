@@ -1,78 +1,145 @@
-# Common Logic
-machine: &machine-cfg
-  image: ubuntu-2004:202107-02
+version: 2.1
 
-defaults: &defaults
+commands:
+  setup:
     steps:
-      - attach_workspace:
-          at: ~/
       - run:
-          name: Prepare environment variables
-          command: | 
-            cd $AUTH0_CFG
-            mv .env.example .env
-            sed -i 's|{DOMAIN}|'$auth0_domain'|g' .env
-            sed -i 's|{API_IDENTIFIER}|'$api_identifier'|g' .env
-      - run:
-          name: Background Server
-          command: cd $AUTH0_CFG && sh exec.sh
-          background: true
-      - run:
-          name: Wait until server is online 
+          name: Configure environment
           command: |
-            until $(curl --silent --head --output /dev/null --fail http://localhost:3010/api/public); do
-                sleep 5
-            done
-      - run:
-          name: Prepare tests
-          command: |
-            cd test
-            echo "AUTH0_DOMAIN=$auth0_domain" >> .env
-            echo "API_IDENTIFIER=$api_identifier" >> .env
-            echo "AUTH0_CLIENT_ID_1=$client_id_scopes_none" >> .env
-            echo "AUTH0_CLIENT_SECRET_1=$client_secret_scopes_none" >> .env
-            echo "AUTH0_CLIENT_ID_2=$client_id_scopes_read" >> .env
-            echo "AUTH0_CLIENT_SECRET_2=$client_secret_scopes_read" >> .env
-            echo "AUTH0_CLIENT_ID_3=$client_id_scopes_write" >> .env
-            echo "AUTH0_CLIENT_SECRET_3=$client_secret_scopes_write" >> .env
-            echo "AUTH0_CLIENT_ID_4=$client_id_scopes_readwrite" >> .env
-            echo "AUTH0_CLIENT_SECRET_4=$client_secret_scopes_readwrite" >> .env
-            echo "API_URL=http://localhost:3010" >> .env
-            npm install
-      - run:
-          name: Execute automated tests
-          command: cd test && npm test
+            apk update
 
-# Jobs and Workflows
-version: 2
-jobs: 
-  checkout:
-    machine:
-      <<: *machine-cfg
+      - checkout
+
+      - run:
+          working_directory: app
+          name: Install dependencies
+          command: |
+            EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
+            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            ACTUAL_CHECKSUM="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+
+            if [ "$EXPECTED_CHECKSUM" != "$ACTUAL_CHECKSUM" ]; then
+                >&2 echo 'ERROR: Invalid installer checksum'
+                rm composer-setup.php
+                exit 1
+            fi
+
+            php composer-setup.php --quiet
+            RESULT=$?
+            rm composer-setup.php
+
+            php composer.phar install --no-interaction --prefer-dist
+
+  setup-pcov:
+    steps:
+      - run:
+          name: Configure pcov
+          command: |
+            apk add autoconf gcc make musl-dev
+            pecl install pcov
+            docker-php-ext-enable pcov
+
+  run-phpinsights:
+    steps:
+      - run:
+          working_directory: app
+          name: Run code quality analysis (PHP Insights)
+          command: php -d memory-limit=-1 ./vendor/bin/phpinsights -v --no-interaction --min-quality=100 --min-complexity=50 --min-architecture=100 --min-style=100
+
+  run-phpstan:
+    steps:
+      - run:
+          working_directory: app
+          name: Run static code analysis (PHPStan)
+          command: php -d memory_limit=-1 ./vendor/bin/phpstan analyse --ansi
+
+  run-pest:
+    steps:
+      - run:
+          working_directory: app
+          name: Run unit tests (Pest)
+          command: php -d memory_limit=-1 ./vendor/bin/pest --stop-on-failure --min=100
+
+  run-snyk:
+    steps:
+      - run:
+          working_directory: app
+          name: Run vulnerabilities tests (Snyk)
+          command: |
+            apk add npm
+            npm install -g snyk
+            snyk test --dev --org=auth0-sdks --project-name=auth0-PHP
+
+jobs:
+  phpinsights:
+    parameters:
+      php:
+        type: string
+    docker:
+      - image: php:<< parameters.php >>-cli-alpine
+    steps:
+      - setup
+      - run-phpinsights
+  phpstan:
+    parameters:
+      php:
+        type: string
+    docker:
+      - image: php:<< parameters.php >>-cli-alpine
+    steps:
+      - setup
+      - run-phpstan
+  semgrep:
+    docker:
+      - image: returntocorp/semgrep:latest
     steps:
       - checkout
       - run:
-          name: Clone test script
-          command: git clone -b v0.0.1 --depth 1 https://github.com/auth0-samples/api-quickstarts-tests test
-      - persist_to_workspace:
-          root: ~/ 
-          paths:
-            - project
-            - test
-  01-Authorization-RS256:
-    machine:
-      <<: *machine-cfg
-    environment:
-      AUTH0_CFG: 01-Authorization-RS256
-      SAMPLE_PATH: 01-Authorization-RS256
-    <<: *defaults
+          name: Run static code analysis (Semgrep)
+          command: semgrep --config auto
+  pest:
+    parameters:
+      php:
+        type: string
+    docker:
+      - image: php:<< parameters.php >>-cli-alpine
+    steps:
+      - setup
+      - setup-pcov
+      - run-pest
+  snyk:
+    parameters:
+      php:
+        type: string
+    docker:
+      - image: php:<< parameters.php >>-cli-alpine
+    steps:
+      - setup
+      - run-snyk
+
 workflows:
-  version: 2
-  API-Tests:
+  test:
     jobs:
-      - checkout:
-          context: Quickstart API Tests
-      - 01-Authorization-RS256:
-          context: Quickstart API Tests
+      - semgrep
+      - phpinsights:
+          matrix:
+            parameters:
+              php: ["8.0", "8.1"]
+      - phpstan:
+          matrix:
+            parameters:
+              php: ["8.0", "8.1"]
+      - pest:
+          matrix:
+            parameters:
+              php: ["8.0", "8.1"]
+      - hold:
+          type: approval
+      - snyk:
+          matrix:
+            parameters:
+              php: ["8.0", "8.1"]
+          context:
+            - snyk-env
           requires:
-            - checkout
+            - hold

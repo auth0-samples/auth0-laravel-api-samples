@@ -1,35 +1,24 @@
-# Auth0 Laravel API Samples
+# Auth0 Laravel Backend API Sample
 
-[![CircleCI](https://circleci.com/gh/auth0-samples/auth0-laravel-api-samples.svg?style=svg)](https://circleci.com/gh/auth0-samples/auth0-laravel-api-samples)
+This sample demonstrates how to add authorization to a [PHP](http://php.net/) web app using [Auth0](https://auth0.com). The project source code can be found in the [app directory](./app). Follow along with [Laravel Quickstart](https://auth0.com/docs/quickstart/backend/laravel) to understand this sample better.
 
-These samples demonstrate how to create an API with Laravel which only permits access to resources if a valid **access token** is included. This verification is done by validating the signature and claims in a JSON Web Token (JWT) signed by Auth0.
+## Vulnerability Reporting
 
-These samples do not demonstrate how to sign a JWT but rather assume that a user has already been authenticated by Auth0 and holds an access token for API access. For information on how to use Auth0 to authenticate users, see [the docs](https://auth0.com/docs).
+Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
 
 ## What is Auth0?
 
-Auth0 helps you to:
+Auth0 helps you to easily:
 
-* Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-* Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
-* Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
-* Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
-* Analytics of how, when and where users are logging in.
-* Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
+- implement authentication with multiple identity providers, including social (e.g., Google, Facebook, Microsoft, LinkedIn, GitHub, Twitter, etc), or enterprise (e.g., Windows Azure AD, Google Apps, Active Directory, ADFS, SAML, etc.)
+- log in users with username/password databases, passwordless, or multi-factor authentication
+- link multiple user accounts together
+- generate signed JSON Web Tokens to authorize your API calls and flow the user identity securely
+- access demographics and analytics detailing how, when, and where users are logging in
+- enrich user profiles from other data sources using customizable JavaScript rules
 
-## Create a free Auth0 account
-
-1. Go to [Auth0](https://auth0.com/signup) and click Sign Up.
-2. Use Google, GitHub or Microsoft Account to login.
-
-## Issue Reporting
-
-If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
-
-## Author
-
-[Auth0](auth0.com)
+[Why Auth0?](https://auth0.com/why-auth0)
 
 ## License
 
-This project is licensed under the MIT license. See the [LICENSE](LICENSE.txt) file for more info.
+This project is licensed under the MIT license. See the [LICENSE](https://github.com/auth0-samples/auth0-php-web-app/blob/master/LICENSE) file for more info.
