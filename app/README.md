@@ -43,10 +43,10 @@ Before continuing, please ensure you have [PHP](https://www.php.net/manual/en/in
 Next, use the following command to install the necessary dependencies and start the sample:
 
 ```bash
-php artisan serve --port=3000
+php artisan serve --port=3010
 ```
 
-Your Quickstart should now be accessible at [http://127.0.0.1:3000/](http://127.0.0.1:3000/) from your web browser.
+Your Quickstart should now be accessible at [http://localhost:3010/](http://localhost:3010/) from your web browser.
 
 ## Running the unit tests
 

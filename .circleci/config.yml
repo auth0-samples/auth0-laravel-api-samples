@@ -129,10 +129,6 @@ workflows:
           matrix:
             parameters:
               php: ["8.0", "8.1"]
-      # - pest:
-      #     matrix:
-      #       parameters:
-      #         php: ["8.0", "8.1"]
       - hold:
           type: approval
       - snyk:
