@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "auth0/login": "dev-main",
+        "auth0/login": "^7.0",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.0",
@@ -18,7 +18,7 @@
     },
     "require-dev": {
         "ergebnis/phpstan-rules": "^1.0",
-        "nunomaduro/larastan": "^1.0",
+        "nunomaduro/larastan": "^2.1",
         "nunomaduro/phpinsights": "^2.1",
         "nyholm/psr7": "^1.4",
         "orchestra/testbench": "7.x-dev",
