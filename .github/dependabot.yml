@@ -1,23 +1,7 @@
 version: 2
 updates:
 - package-ecosystem: composer
-  directory: "/01-Authorization-RS256"
+  directory: "/app"
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: barryvdh/laravel-cors
-    versions:
-    - 2.0.4
-  - dependency-name: symfony/http-kernel
-    versions:
-    - 4.4.21
-  - dependency-name: phpunit/phpunit
-    versions:
-    - 8.5.15
-  - dependency-name: mockery/mockery
-    versions:
-    - 1.3.4
-  - dependency-name: symfony/dom-crawler
-    versions:
-    - 5.2.3
