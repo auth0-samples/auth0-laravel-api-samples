@@ -95,11 +95,17 @@
         },
         {
             "name": "auth0/login",
-            "version": "dev-change/return-interfaces",
+            "version": "7.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/auth0/laravel-auth0.git",
+                "reference": "b62e775d745b054e774f2c59a1c3f85309d89d41"
+            },
             "dist": {
-                "type": "path",
-                "url": "../../laravel-auth0",
-                "reference": "b046deb22389069884fc0398d73dfd82e0ccbe32"
+                "type": "zip",
+                "url": "https://api.github.com/repos/auth0/laravel-auth0/zipball/b62e775d745b054e774f2c59a1c3f85309d89d41",
+                "reference": "b62e775d745b054e774f2c59a1c3f85309d89d41",
+                "shasum": ""
             },
             "require": {
                 "auth0/auth0-php": "^8.0",
@@ -157,11 +163,7 @@
                     "Auth0\\Laravel\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Auth0\\Laravel\\Tests\\": "tests"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -175,25 +177,27 @@
             "description": "Auth0 Laravel SDK. Straight-forward and tested methods for implementing authentication, and accessing Auth0's Management API endpoints.",
             "homepage": "https://github.com/auth0/laravel-auth0",
             "keywords": [
+                "Authentication",
+                "JSON Web Token",
+                "JWK",
+                "OpenId",
                 "api",
                 "auth",
                 "auth0",
-                "authentication",
                 "authorization",
                 "json web key",
-                "json web token",
-                "jwk",
                 "jwt",
                 "laravel",
                 "login",
                 "oauth",
-                "openid",
                 "protect",
                 "secure"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/auth0/laravel-auth0/issues",
+                "source": "https://github.com/auth0/laravel-auth0/tree/7.0.1"
+            },
+            "time": "2022-06-02T00:31:22+00:00"
         },
         {
             "name": "brick/math",
@@ -11526,8 +11530,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "orchestra/testbench": 20,
-        "auth0/login": 20
+        "orchestra/testbench": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
